@@ -38,3 +38,12 @@ Leia o material integralmente. Identifique tema central, subtópicos, conceitos,
 - Gerar o conteúdo em lotes verificáveis (por exemplo, capítulos de 10 a 20 páginas), mantendo numeração e identidade visual consistentes.
 - Consolidar as páginas em um único PDF; validar a contagem efetiva de páginas, ausência de páginas em branco e legibilidade antes da entrega.
 - O renderizador atual não garante 150 páginas a partir de qualquer entrada: a quantidade depende do planejamento editorial e da densidade do conteúdo. Não declarar guia de 150 páginas pronto sem verificar o PDF resultante.
+
+## Especificação editorial: livro de mapas visuais de um tema central
+- A entrada é um **tema central específico**, acompanhado de fontes ou escopo autorizado. O resultado esperado é um livro PDF de aproximadamente 150 páginas, não 150 assuntos independentes.
+- Cada página representa uma unidade pedagógica sobre **um subtema do tema central**, contendo preferencialmente 3 a 6 blocos relacionados por hierarquia, comparação, sequência, causa e efeito ou exemplo. Evitar páginas compostas somente por parágrafos extensos.
+- Planejar primeiro um sumário hierárquico (tema → capítulos → subtemas → páginas), com progressão de conceitos introdutórios a aplicações, síntese e revisão. Distribuir as páginas de acordo com densidade e importância, sem cotas fixas por capítulo.
+- Usar componentes visuais relevantes: mapas conceituais, fluxogramas, diagramas, tabelas sintéticas, exemplos, ícones e ilustrações quando os recursos de produção estiverem disponíveis. Não alegar que um recurso gráfico foi produzido se o renderizador ainda não o implementa.
+- Manter unidade gráfica, legibilidade, fontes de informação e numeração de páginas. Reservar páginas para capa, sumário e encerramento conforme o projeto editorial, incluindo-as na contagem total.
+- A meta de aproximadamente 150 páginas é uma preferência editorial, subordinada à fidelidade às fontes e à suficiência do conteúdo. Não repetir informação ou inventar fatos para alcançar a contagem.
+- Distinguir o **planejamento do livro** da **geração e verificação do PDF**: somente considerar entregue quando o PDF único existir, tiver sido inspecionado e sua contagem de páginas confirmada.

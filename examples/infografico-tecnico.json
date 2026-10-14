@@ -1,0 +1,35 @@
+{
+  "title": "Diagnóstico de conectividade MikroTik",
+  "language": "pt-BR",
+  "style": "diagnostico",
+  "sections": [
+    {
+      "title": "Verificar enlace físico",
+      "items": [
+        "Conferir o estado da interface Ethernet.",
+        "Inspecionar cabo e negociação de velocidade."
+      ]
+    },
+    {
+      "title": "Validar endereçamento",
+      "items": [
+        "Conferir endereço IP e máscara.",
+        "Verificar concessão DHCP e gateway."
+      ]
+    },
+    {
+      "title": "Testar conectividade",
+      "items": [
+        "Testar comunicação com o gateway.",
+        "Verificar resolução DNS separadamente."
+      ]
+    },
+    {
+      "title": "Registrar resultado",
+      "items": [
+        "Anotar sintomas, testes e evidências.",
+        "Documentar a ação corretiva aplicada."
+      ]
+    }
+  ]
+}

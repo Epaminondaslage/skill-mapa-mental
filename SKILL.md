@@ -5,16 +5,7 @@ description: Gera mapas mentais didáticos e coloridos, com diagramas editáveis
 
 # Skill Mapas Mentais v2
 
-Leia o material integralmente. Identifique tema central, subtópicos, conceitos, exemplos e relações. Não invente fatos. Escolha mapa radial, árvore, conceitual ou sequencial conforme o conteúdo. Organize um modelo JSON canônico e gere SVG editável, PNG e PDF vetorial quando CairoSVG estiver disponível. Use cores por ramo, textos legíveis e conexões explícitas. Valide cobertura, fidelidade, legibilidade e correspondência entre formatos. Para estudo, produza cinco perguntas, cinco flashcards e três pontos essenciais. Responda em português brasileiro, salvo solicitação contrária.
-
-## Idioma de saída (português ou italiano)
-- Padrão: português brasileiro (`pt-BR`). O usuário pode pedir `italiano` (`it-IT`) em qualquer execução.
-- Antes de gerar o mapa, identificar o idioma solicitado. Se não estiver explícito, manter `pt-BR`; não presumir italiano apenas porque a fonte está em italiano.
-- Aplicar o idioma selecionado a título, nós, conectores, legendas, perguntas, respostas, flashcards e checklist.
-- Preservar nomes próprios, citações e termos técnicos na forma original quando necessário.
-- Para `it-IT`, usar italiano natural, com acentuação correta; não misturar português nos textos do mapa.
-- Registrar `language: "it-IT"` ou `"pt-BR"` no JSON. Conferir consistência linguística na validação.
-
+Leia o material integralmente. Identifique tema central, subtópicos, conceitos, exemplos e relações. Não invente fatos. Escolha mapa radial, árvore, conceitual ou sequencial conforme o conteúdo. Organize um modelo JSON canônico e gere SVG editável, PNG e PDF vetorial quando CairoSVG estiver disponível. Use cores por ramo, textos legíveis e conexões explícitas. Valide cobertura, fidelidade, legibilidade e correspondência entre formatos. Para estudo, produza cinco perguntas, cinco flashcards e três pontos essenciais. Respeite o idioma explicitamente escolhido pelo usuário.
 
 ## Seleção obrigatória de idioma
 - Idiomas suportados: português brasileiro (`pt-BR`) e italiano (`it-IT`).
@@ -31,3 +22,11 @@ Leia o material integralmente. Identifique tema central, subtópicos, conceitos,
 - Instalar dependência opcional: `python3 -m pip install cairosvg`.
 - Se CairoSVG não estiver instalado, entregar SVG/JSON e informar que PNG/PDF não foram gerados; nunca declarar PDF gerado sem verificar o arquivo.
 - Para impressão em A4/A3, adequar layout e verificar margens e legibilidade antes de exportar.
+
+## Infográficos técnicos (estilo prioritário)
+- Para conteúdos procedimentais, diagnósticos, comandos ou mapas visuais de consulta, priorizar o estilo de infográfico técnico inspirado na organização didática dos exemplos MikroTik.
+- Consultar `references/infografico-tecnico.md` e gerar o JSON com `title`, `language`, `style` e `sections`.
+- Renderizar com `python3 scripts/render_infografico.py <entrada.json> --out <diretorio> --paper a4 --orientation landscape`.
+- Estilos disponíveis: `tecnico`, `diagnostico`, `referencia`, `conceitual`. Preservar o renderizador clássico `scripts/render.py` para mapas de nós e conexões.
+- Para conteúdo longo, dividir em seções curtas; revisar visualmente a legibilidade de cada página.
+- Esta versão produz PDFs individuais por página quando CairoSVG está instalado; não prometer PDF multipágina ou editor interativo.

@@ -20,3 +20,7 @@ O renderizador produz layouts básicos. Confira a legibilidade e a fidelidade se
 
 ## Idiomas
 A skill oferece português brasileiro (`pt-BR`, padrão) e italiano (`it-IT`). Exemplo: “Use a skill mapas-mentais para criar um mapa conceitual **em italiano** sobre este PDF”. A escolha deve valer para títulos, ramos, conectores e revisão ativa.
+
+
+## Seleção de idioma
+Antes de gerar, o Codex deve perguntar **“Você deseja o mapa em português ou italiano?”** quando o pedido não especificar idioma. São suportados `pt-BR` e `it-IT`. Também é possível pedir os dois idiomas, com arquivos separados e estrutura equivalente.

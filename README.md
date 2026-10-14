@@ -2,7 +2,7 @@
 
 Transforme materiais de estudo e documentação técnica em **mapas mentais coloridos**, com estrutura editável e revisão ativa. A skill foi concebida para trabalhar a partir de conteúdo fornecido pelo usuário, sem inventar conceitos ou omitir tópicos solicitados.
 
-> **Estado do projeto:** a documentação e os modelos ilustrativos estão publicados. O renderizador `scripts/render.py` e o exemplo executável `examples/exemplo.json` ainda não estão disponíveis no repositório. Os comandos abaixo são o fluxo previsto para quando esses arquivos forem adicionados.
+> **Estado do projeto:** renderizador Python, exemplos, testes e modelos ilustrativos estão publicados. PNG e PDF exigem a dependência opcional CairoSVG.
 
 ## Galeria de modelos
 
@@ -137,18 +137,26 @@ Esses exemplos demonstram o formato da revisão; em uso real, perguntas e respos
 |---|---|
 | `mapa.json` | Estrutura canônica editável |
 | `mapa.svg` | Diagrama vetorial editável |
-| `mapa.png` | Imagem para apresentação ou impressão, quando disponível |
+| `mapa.png` | Imagem para apresentação ou impressão, com CairoSVG |
+| `mapa.pdf` | PDF vetorial para visualização e impressão, com CairoSVG |
 | `mapa.mmd` | Mermaid, quando solicitado e produzido |
 | `revisao.md` | Perguntas, flashcards e pontos essenciais |
 
-## Execução local — após disponibilização do renderizador
+## Execução local
 
 ```bash
 python3 scripts/render.py examples/exemplo.json --out saida
 python3 -m unittest discover -s tests -v
 ```
 
-A geração de PNG poderá exigir a dependência opcional `cairosvg`. A renderização não substitui a revisão da fidelidade semântica, da legibilidade e da cobertura do material.
+Para gerar **PNG e PDF**, instale a dependência opcional `cairosvg` (`python3 -m pip install cairosvg`). O PDF é convertido do SVG e mantém conteúdo vetorial sempre que suportado. A renderização não substitui a revisão da fidelidade semântica, da legibilidade e da cobertura do material.
+
+**Exemplo de solicitação com PDF:**
+
+```text
+Use a skill mapas-mentais para criar um mapa radial em italiano
+com saída em SVG, PNG, JSON e PDF vetorial para impressão.
+```
 
 ## Princípios de qualidade
 
@@ -165,6 +173,10 @@ A geração de PNG poderá exigir a dependência opcional `cairosvg`. A renderiz
 skill-mapa-mental/
 ├── SKILL.md
 ├── README.md
+├── scripts/render.py
+├── tests/test_render.py
+├── examples/
+├── references/
 └── docs/
     └── modelos/
         ├── radial.svg

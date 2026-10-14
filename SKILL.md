@@ -26,7 +26,7 @@ Leia o material integralmente. Identifique tema central, subtópicos, conceitos,
 ## Infográficos técnicos (estilo prioritário)
 - Para conteúdos procedimentais, diagnósticos, comandos ou mapas visuais de consulta, priorizar o estilo de infográfico técnico inspirado na organização didática dos exemplos MikroTik.
 - Consultar `references/infografico-tecnico.md` e gerar o JSON com `title`, `language`, `style` e `sections`.
-- Renderizar com `python3 scripts/render_infografico.py <entrada.json> --out <diretorio> --paper a4 --orientation landscape`.
+- Renderizar preferencialmente com `python3 scripts/export_visual.py <entrada.json> --out <diretorio> --paper a4 --orientation landscape` (requer CairoSVG e pypdf para PDF consolidado).
 - Estilos disponíveis: `tecnico`, `diagnostico`, `referencia`, `conceitual`. Preservar o renderizador clássico `scripts/render.py` para mapas de nós e conexões.
 - Para conteúdo longo, dividir em seções curtas; revisar visualmente a legibilidade de cada página.
-- Esta versão produz PDFs individuais por página quando CairoSVG está instalado; não prometer PDF multipágina ou editor interativo.
+- O exportador gera PDFs por página com CairoSVG, PDF consolidado quando pypdf também está instalado, e HTML offline com zoom e busca. Não prometer edição visual interativa de nós.

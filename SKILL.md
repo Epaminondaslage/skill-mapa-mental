@@ -30,3 +30,11 @@ Leia o material integralmente. Identifique tema central, subtópicos, conceitos,
 - Estilos disponíveis: `tecnico`, `diagnostico`, `referencia`, `conceitual`. Preservar o renderizador clássico `scripts/render.py` para mapas de nós e conexões.
 - Para conteúdo longo, dividir em seções curtas; revisar visualmente a legibilidade de cada página.
 - O exportador gera PDFs por página com CairoSVG, PDF consolidado quando pypdf também está instalado, e HTML offline com zoom e busca. Não prometer edição visual interativa de nós.
+
+## Publicação longa: aproximadamente 150 páginas
+- Quando o usuário solicitar um guia completo, planejar primeiro um índice editorial por capítulos e seções, com meta configurável de cerca de 150 páginas (não uma obrigação de completar exatamente 150).
+- Priorizar uma unidade visual didática por página; dividir conteúdos extensos em várias páginas e não inventar tópicos para atingir a meta.
+- Registrar para cada página título, objetivo, conteúdo de origem, seção/capítulo e ordem. Conferir cobertura do material fornecido.
+- Gerar o conteúdo em lotes verificáveis (por exemplo, capítulos de 10 a 20 páginas), mantendo numeração e identidade visual consistentes.
+- Consolidar as páginas em um único PDF; validar a contagem efetiva de páginas, ausência de páginas em branco e legibilidade antes da entrega.
+- O renderizador atual não garante 150 páginas a partir de qualquer entrada: a quantidade depende do planejamento editorial e da densidade do conteúdo. Não declarar guia de 150 páginas pronto sem verificar o PDF resultante.

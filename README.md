@@ -17,3 +17,6 @@ PNG: instale `cairosvg` em ambiente virtual. A geração de SVG/JSON usa somente
 
 ## Observações
 O renderizador produz layouts básicos. Confira a legibilidade e a fidelidade semântica antes de usar mapas complexos. Divida conteúdos extensos em mapas complementares.
+
+## Idiomas
+A skill oferece português brasileiro (`pt-BR`, padrão) e italiano (`it-IT`). Exemplo: “Use a skill mapas-mentais para criar um mapa conceitual **em italiano** sobre este PDF”. A escolha deve valer para títulos, ramos, conectores e revisão ativa.

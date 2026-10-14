@@ -28,6 +28,34 @@ Ideal para conceitos interligados, com conectores rotulados.
 
 Ideal para cronologias, procedimentos e etapas.
 
+## Infográficos técnicos (modelo prioritário)
+
+A família `infografico-tecnico` foi criada a partir da análise de referências de mapas visuais MikroTik. O renderizador de infográficos é **independente** do renderizador clássico de mapas radiais, árvores, conceitos e sequências.
+
+**Estilos iniciais:** `tecnico`, `diagnostico`, `referencia` e `conceitual`. Cada estilo aplica uma paleta temática, cabeçalho, numeração de seções e blocos de informação. A fidelidade visual às referências ainda requer evolução de ilustrações e conectores.
+
+### Exemplo de uso
+
+```bash
+python3 -m pip install cairosvg pypdf
+python3 scripts/export_visual.py examples/infografico-tecnico.json \
+  --out saida-infografico --paper a4 --orientation landscape
+```
+
+Alternativas: `--paper a3`, `--orientation portrait` e `--dpi 200`.
+
+**Arquivos de saída:** `mapa.json`, `mapa-01.svg`, `mapa-01.png`, `mapa-01.pdf` (e os arquivos numerados de outras páginas), `mapa-completo.pdf` (quando CairoSVG e pypdf estão disponíveis) e `mapa-interativo.html`. O HTML é autocontido, com pesquisa, zoom, navegação e impressão.
+
+**Limitações conhecidas:** imagens externas, ícones vetoriais, diagramas de decisão, conectores complexos e editor de nós não estão implementados. Os SVGs produzidos são editáveis em editores vetoriais, mas não há edição visual no HTML. A quebra de texto é estimada por caracteres; inspecione a saída antes da impressão.
+
+### Testes e integração contínua
+
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py' -v
+```
+
+O workflow `.github/workflows/testes.yml` executa testes e gera um exemplo em pushes e pull requests. Verifique o status na aba **Actions** do GitHub; a existência do workflow não implica aprovação.
+
 ## Instalação no Codex
 
 No terminal do macOS ou Linux:

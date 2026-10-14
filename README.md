@@ -1,0 +1,19 @@
+# Skill Mapas Mentais v2 — Codex
+
+Geração de mapas didáticos e coloridos com SVG editável, JSON canônico e PNG opcional.
+
+## Instalação
+```bash
+git clone https://github.com/Epaminondaslage/skill-mapa-mental.git ~/.agents/skills/mapas-mentais
+```
+Reinicie a sessão do Codex.
+
+## Execução
+```bash
+python3 scripts/render.py examples/exemplo.json --out saida
+python3 -m unittest discover -s tests -v
+```
+PNG: instale `cairosvg` em ambiente virtual. A geração de SVG/JSON usa somente Python padrão.
+
+## Observações
+O renderizador produz layouts básicos. Confira a legibilidade e a fidelidade semântica antes de usar mapas complexos. Divida conteúdos extensos em mapas complementares.

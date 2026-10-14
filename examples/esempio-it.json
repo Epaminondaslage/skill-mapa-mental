@@ -1,0 +1,32 @@
+{
+  "title": "Mappe mentali",
+  "language": "it-IT",
+  "layout": "radial",
+  "nodes": [
+    {
+      "id": "tema",
+      "label": "Mappe mentali",
+      "parent": null
+    },
+    {
+      "id": "radial",
+      "label": "Mappa radiale",
+      "parent": "tema"
+    },
+    {
+      "id": "arvore",
+      "label": "Mappa ad albero",
+      "parent": "tema"
+    },
+    {
+      "id": "conceitual",
+      "label": "Mappa concettuale",
+      "parent": "tema"
+    },
+    {
+      "id": "sequencial",
+      "label": "Mappa sequenziale",
+      "parent": "tema"
+    }
+  ]
+}

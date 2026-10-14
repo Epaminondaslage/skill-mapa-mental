@@ -14,3 +14,14 @@ Leia o material integralmente. Identifique tema central, subtópicos, conceitos,
 - Preservar nomes próprios, citações e termos técnicos na forma original quando necessário.
 - Para `it-IT`, usar italiano natural, com acentuação correta; não misturar português nos textos do mapa.
 - Registrar `language: "it-IT"` ou `"pt-BR"` no JSON. Conferir consistência linguística na validação.
+
+
+## Seleção obrigatória de idioma
+- Idiomas suportados: português brasileiro (`pt-BR`) e italiano (`it-IT`).
+- Se o usuário não indicar o idioma de saída, perguntar **“Você deseja o mapa em português ou italiano?”** antes de gerar qualquer arquivo.
+- Se o usuário indicar um idioma, utilizá-lo sem perguntar novamente.
+- Se solicitar ambos, gerar duas versões completas e equivalentes do mapa, mantendo IDs, relações e disposição visual correspondentes; usar nomes de arquivo distintos, como `mapa-pt-BR.svg` e `mapa-it-IT.svg`.
+- Aplicar o idioma escolhido a títulos, rótulos, conectores, legendas, perguntas, respostas, flashcards e relatório de validação.
+- O idioma do documento de entrada não determina automaticamente o idioma de saída.
+- Preservar nomes próprios, citações e terminologia técnica quando necessário. Conferir ortografia e consistência de idioma antes da entrega.
+- Registrar o idioma escolhido no campo `language` do JSON canônico.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Renderizador SVG/PNG e JSON de mapas mentais (biblioteca padrão; PNG opcional)."""
+"""Renderizador SVG, JSON e exportação vetorial opcional PNG/PDF via CairoSVG."""
 import argparse
 import html
 import json
@@ -134,9 +134,10 @@ def main():
     try:
         import cairosvg
     except ImportError:
-        print("SVG e JSON gerados. PNG opcional: instale cairosvg.")
+        print("SVG e JSON gerados. Para exportar PNG e PDF: python3 -m pip install cairosvg")
     else:
         cairosvg.svg2png(bytestring=svg.encode("utf-8"), write_to=str(dest / "mapa.png"))
-        print("SVG, JSON e PNG gerados.")
+        cairosvg.svg2pdf(bytestring=svg.encode("utf-8"), write_to=str(dest / "mapa.pdf"))
+        print("SVG, JSON, PNG e PDF vetorial gerados.")
 if __name__ == "__main__":
     main()

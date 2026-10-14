@@ -1,11 +1,11 @@
 ---
 name: mapas-mentais
-description: Gera mapas mentais didáticos e coloridos, com diagramas editáveis e revisão ativa, a partir de material fornecido.
+description: Gera mapas mentais, mapas de decisão e livros visuais didáticos em formatos editáveis e PDF, a partir de um tema e fontes fornecidas.
 ---
 
 # Skill Mapas Mentais v2
 
-Leia o material integralmente. Identifique tema central, subtópicos, conceitos, exemplos e relações. Não invente fatos. Escolha mapa radial, árvore, conceitual ou sequencial conforme o conteúdo. Organize um modelo JSON canônico e gere SVG editável, PNG e PDF vetorial quando CairoSVG estiver disponível. Use cores por ramo, textos legíveis e conexões explícitas. Valide cobertura, fidelidade, legibilidade e correspondência entre formatos. Para estudo, produza cinco perguntas, cinco flashcards e três pontos essenciais. Respeite o idioma explicitamente escolhido pelo usuário.
+Leia o material integralmente. Identifique tema central, subtópicos, conceitos, exemplos e relações. Não invente fatos. Escolha mapa radial, árvore, conceitual, sequencial ou de decisão conforme o conteúdo. Organize um modelo JSON canônico e gere SVG editável, PNG e PDF vetorial quando CairoSVG estiver disponível. Use cores por ramo, textos legíveis e conexões explícitas. Valide cobertura, fidelidade, legibilidade e correspondência entre formatos. Para estudo, produza cinco perguntas, cinco flashcards e três pontos essenciais. Respeite o idioma explicitamente escolhido pelo usuário.
 
 ## Seleção obrigatória de idioma
 - Idiomas suportados: português brasileiro (`pt-BR`) e italiano (`it-IT`).
@@ -30,6 +30,13 @@ Leia o material integralmente. Identifique tema central, subtópicos, conceitos,
 - Estilos disponíveis: `tecnico`, `diagnostico`, `referencia`, `conceitual`. Preservar o renderizador clássico `scripts/render.py` para mapas de nós e conexões.
 - Para conteúdo longo, dividir em seções curtas; revisar visualmente a legibilidade de cada página.
 - O exportador gera PDFs por página com CairoSVG, PDF consolidado quando pypdf também está instalado, e HTML offline com zoom e busca. Não prometer edição visual interativa de nós.
+
+## Mapas de decisão didáticos
+- Usar quando o material orientar uma escolha por perguntas, critérios, condições ou necessidades. Não usar apenas porque o tema possui categorias.
+- Consultar `references/infografico-tecnico.md`, seção “Layout de mapa de decisão”, e partir de `examples/mapa-decisao.json`.
+- Estruturar uma pergunta inicial, de 2 a 4 caminhos mutuamente compreensíveis, de 1 a 3 opções por caminho e uma síntese final. Cada resultado deve decorrer explicitamente da pergunta e das fontes.
+- Renderizar com `layout: "decision"`; para quatro caminhos, preferir A4 retrato. Manter o mapa legível como página autônoma e complementar explicações complexas em páginas anteriores ou posteriores.
+- Em livros longos, usar o mapa de decisão como página de consolidação ou consulta rápida após ensinar os critérios. Não substituir a progressão pedagógica inteira por um único fluxograma.
 
 ## Publicação longa: aproximadamente 150 páginas
 - Quando o usuário solicitar um guia completo, planejar primeiro um índice editorial por capítulos e seções, com meta configurável de cerca de 150 páginas (não uma obrigação de completar exatamente 150).

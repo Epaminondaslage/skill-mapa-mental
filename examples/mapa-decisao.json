@@ -1,0 +1,71 @@
+{
+  "title": "Qual estrutura de dados usar?",
+  "subtitle": "Identifique a operação dominante e siga o caminho correspondente.",
+  "language": "pt-BR",
+  "style": "tecnico",
+  "layout": "decision",
+  "prompt": "O que preciso fazer com os dados?",
+  "branches": [
+    {
+      "title": "ACESSO E EDIÇÃO",
+      "options": [
+        {
+          "question": "Acesso direto por posição?",
+          "result": "ARRAY",
+          "detail": "Índice direto e leitura frequente."
+        },
+        {
+          "question": "Inserção e remoção por referência?",
+          "result": "LINKED LIST",
+          "detail": "Nós conectados e alteração frequente."
+        }
+      ]
+    },
+    {
+      "title": "ORDEM DE SAÍDA",
+      "options": [
+        {
+          "question": "O último a entrar deve sair primeiro?",
+          "result": "STACK",
+          "detail": "Ordem LIFO."
+        },
+        {
+          "question": "O primeiro a entrar deve sair primeiro?",
+          "result": "QUEUE",
+          "detail": "Ordem FIFO."
+        }
+      ]
+    },
+    {
+      "title": "BUSCA E PRIORIDADE",
+      "options": [
+        {
+          "question": "Busca principalmente por chave?",
+          "result": "HASH TABLE",
+          "detail": "Associação direta entre chave e valor."
+        },
+        {
+          "question": "Maior ou menor prioridade no topo?",
+          "result": "HEAP",
+          "detail": "Acesso eficiente ao item prioritário."
+        }
+      ]
+    },
+    {
+      "title": "RELAÇÕES",
+      "options": [
+        {
+          "question": "Os dados formam uma hierarquia?",
+          "result": "TREE",
+          "detail": "Relações de pai e filho."
+        },
+        {
+          "question": "Os elementos possuem conexões variadas?",
+          "result": "GRAPH",
+          "detail": "Vértices conectados por arestas."
+        }
+      ]
+    }
+  ],
+  "takeaway": "Não existe uma estrutura universalmente melhor: escolha pela necessidade dominante."
+}

@@ -1,4 +1,5 @@
 import importlib.util
+import builtins
 import tempfile
 import unittest
 from pathlib import Path
@@ -29,6 +30,22 @@ class ExportVisualTests(unittest.TestCase):
             if status["merged_pdf"]:
                 from pypdf import PdfReader
                 self.assertEqual(len(PdfReader(str(Path(folder) / "mapa-completo.pdf")).pages), 1)
+
+    def test_cairosvg_native_library_failure_falls_back_to_svg(self):
+        data = {"title":"Exemplo", "sections":[{"title":"Etapa", "items":["Teste"]}]}
+        original_import = builtins.__import__
+        def unavailable(name, *args, **kwargs):
+            if name == "cairosvg":
+                raise OSError("biblioteca Cairo ausente")
+            return original_import(name, *args, **kwargs)
+        with tempfile.TemporaryDirectory() as folder:
+            builtins.__import__ = unavailable
+            try:
+                status = module.export(data, folder)
+            finally:
+                builtins.__import__ = original_import
+            self.assertFalse(status["png_pdf"])
+            self.assertTrue((Path(folder) / "mapa-01.svg").exists())
 
 if __name__ == "__main__":
     unittest.main()

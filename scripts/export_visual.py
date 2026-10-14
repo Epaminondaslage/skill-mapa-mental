@@ -14,7 +14,7 @@ def export(data, output, paper="a4", orientation="landscape", dpi=160):
     (output / "mapa.json").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     try:
         import cairosvg
-    except ImportError:
+    except (ImportError, OSError):
         cairosvg = None
     try:
         from pypdf import PdfReader, PdfWriter

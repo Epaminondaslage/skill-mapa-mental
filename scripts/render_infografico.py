@@ -14,16 +14,20 @@ PALETTES = {
     "conceitual": ("#17152f", "#7c3aed", "#f5f3ff", "#4c1d95"),
 }
 
+DECISION_COLORS = ("#2563eb", "#7c3aed", "#d97706", "#059669")
+
 def esc(value):
     return html.escape(str(value), quote=True)
 
-def validate(data):
+def validate(data, require_sections=True):
     if not isinstance(data, dict) or not str(data.get("title", "")).strip():
         raise ValueError("title obrigatório")
     if data.get("language", "pt-BR") not in ("pt-BR", "it-IT"):
         raise ValueError("idioma inválido")
     if data.get("style", "tecnico") not in PALETTES:
         raise ValueError("estilo inválido")
+    if not require_sections:
+        return []
     sections = data.get("sections")
     if not isinstance(sections, list) or not sections:
         raise ValueError("sections deve ser lista não vazia")
@@ -44,7 +48,104 @@ def wrapped(value, max_chars):
                                    break_on_hyphens=False) or [""])
     return lines
 
+def validate_decision(data):
+    prompt = data.get("prompt")
+    branches = data.get("branches")
+    if not isinstance(prompt, str) or not prompt.strip():
+        raise ValueError("prompt obrigatório no layout decision")
+    if not isinstance(branches, list) or not 2 <= len(branches) <= 4:
+        raise ValueError("branches deve conter de 2 a 4 caminhos")
+    for branch in branches:
+        if not isinstance(branch, dict) or not str(branch.get("title", "")).strip():
+            raise ValueError("caminho de decisão sem título")
+        options = branch.get("options")
+        if not isinstance(options, list) or not 1 <= len(options) <= 3:
+            raise ValueError("cada caminho deve conter de 1 a 3 opções")
+        for option in options:
+            if not isinstance(option, dict):
+                raise ValueError("opção de decisão inválida")
+            if not str(option.get("question", "")).strip() or not str(option.get("result", "")).strip():
+                raise ValueError("cada opção exige question e result")
+    return branches
+
+def render_decision_svg(data, paper="a4", orientation="portrait"):
+    """Renderiza uma página de decisão didática com caminhos e recomendações."""
+    validate(data, require_sections=False)
+    branches = validate_decision(data)
+    dimensions = {"a4": (1123, 794), "a3": (1587, 1123)}
+    if paper not in dimensions or orientation not in ("landscape", "portrait"):
+        raise ValueError("papel ou orientação inválidos")
+    width, height = dimensions[paper]
+    if orientation == "portrait":
+        width, height = height, width
+    dark, accent, pale, ink = PALETTES[data.get("style", "tecnico")]
+    margin, gap = 42, 14
+    header_h, prompt_y, prompt_h = 150, 174, 78
+    cols = len(branches)
+    col_width = (width - 2 * margin - (cols - 1) * gap) / cols
+    card_top = 292
+    footer_h = 142
+    usable_h = height - card_top - footer_h - 28
+    option_gap = 12
+    max_options = max(len(branch["options"]) for branch in branches)
+    option_h = (usable_h - 58 - (max_options - 1) * option_gap) / max_options
+    if option_h < 118:
+        raise ValueError("conteúdo de decisão denso demais; reduza caminhos ou opções")
+
+    out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
+           f'<rect width="{width}" height="{height}" fill="#f8fafc"/>',
+           f'<rect width="{width}" height="{header_h}" fill="{dark}"/>',
+           f'<title>{esc(data["title"])}</title>']
+    out.append(f'<text x="{margin}" y="42" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2" fill="#93c5fd">MAPA DE DECISÃO</text>')
+    for n, line in enumerate(wrapped(data["title"], max(22, int((width - 2 * margin) / 20)))[:2]):
+        out.append(f'<text x="{margin}" y="{82+n*34}" font-family="Arial,sans-serif" font-size="29" font-weight="bold" fill="white">{esc(line)}</text>')
+    if data.get("subtitle"):
+        out.append(f'<text x="{margin}" y="{header_h-14}" font-family="Arial,sans-serif" font-size="14" fill="#cbd5e1">{esc(data["subtitle"])}</text>')
+
+    prompt_w = min(width - 2 * margin, 560)
+    prompt_x = (width - prompt_w) / 2
+    out.append(f'<rect x="{prompt_x}" y="{prompt_y}" width="{prompt_w}" height="{prompt_h}" rx="14" fill="{accent}"/>')
+    out.append(f'<text x="{width/2}" y="{prompt_y+24}" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#dbeafe">COMECE PELO PROBLEMA</text>')
+    for n, line in enumerate(wrapped(data["prompt"], max(28, int(prompt_w / 12)))[:2]):
+        out.append(f'<text x="{width/2}" y="{prompt_y+50+n*18}" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="white">{esc(line)}</text>')
+    junction_y = 272
+    out.append(f'<path d="M {width/2} {prompt_y+prompt_h} V {junction_y} H {margin+col_width/2} M {width/2} {junction_y} H {width-margin-col_width/2}" fill="none" stroke="{accent}" stroke-width="2"/>')
+
+    for branch_index, branch in enumerate(branches):
+        color = branch.get("color") or DECISION_COLORS[branch_index]
+        x = margin + branch_index * (col_width + gap)
+        center = x + col_width / 2
+        out.append(f'<path d="M {center} {junction_y} V {card_top}" fill="none" stroke="{color}" stroke-width="2"/>')
+        out.append(f'<rect x="{x}" y="{card_top}" width="{col_width}" height="42" rx="10" fill="{color}"/>')
+        out.append(f'<text x="{center}" y="{card_top+27}" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">{esc(branch["title"])}</text>')
+        for option_index, option in enumerate(branch["options"]):
+            y = card_top + 54 + option_index * (option_h + option_gap)
+            out.append(f'<rect x="{x}" y="{y}" width="{col_width}" height="{option_h}" rx="12" fill="white" stroke="#cbd5e1"/>')
+            cursor = y + 25
+            for line in wrapped(option["question"], max(14, int((col_width - 24) / 8)))[:3]:
+                out.append(f'<text x="{x+12}" y="{cursor}" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="{ink}">{esc(line)}</text>')
+                cursor += 16
+            cursor += 5
+            out.append(f'<rect x="{x+10}" y="{cursor}" width="{col_width-20}" height="28" rx="14" fill="{pale}"/>')
+            out.append(f'<text x="{center}" y="{cursor+19}" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="{color}">{esc(option["result"])}</text>')
+            cursor += 46
+            for line in wrapped(option.get("detail", ""), max(16, int((col_width - 24) / 7)))[:4]:
+                out.append(f'<text x="{x+12}" y="{cursor}" font-family="Arial,sans-serif" font-size="11" fill="#475569">{esc(line)}</text>')
+                cursor += 14
+
+    footer_y = height - footer_h
+    takeaway = data.get("takeaway", "Escolha pelo problema, pela operação e pela característica dos dados.")
+    out.append(f'<rect x="{margin}" y="{footer_y}" width="{width-2*margin}" height="72" rx="14" fill="{dark}"/>')
+    out.append(f'<text x="{width/2}" y="{footer_y+25}" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#93c5fd">SÍNTESE</text>')
+    for n, line in enumerate(wrapped(takeaway, max(35, int((width-2*margin)/10)))[:2]):
+        out.append(f'<text x="{width/2}" y="{footer_y+49+n*16}" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">{esc(line)}</text>')
+    out.append(f'<text x="{width-margin}" y="{height-20}" text-anchor="end" font-family="Arial,sans-serif" font-size="12" fill="#64748b">1/1</text>')
+    out.append('</svg>')
+    return ["\n".join(out)]
+
 def render_svg(data, paper="a4", orientation="landscape"):
+    if data.get("layout") == "decision":
+        return render_decision_svg(data, paper, orientation)
     sections = validate(data)
     dimensions = {"a4": (1123, 794), "a3": (1587, 1123)}
     if paper not in dimensions or orientation not in ("landscape", "portrait"):
@@ -126,7 +227,7 @@ def main():
     (dest / "mapa.json").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     try:
         import cairosvg
-    except ImportError:
+    except (ImportError, OSError):
         cairosvg = None
     for i, svg in enumerate(pages, 1):
         name = f"mapa-{i:02d}"

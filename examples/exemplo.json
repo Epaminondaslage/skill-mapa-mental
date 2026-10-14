@@ -1,0 +1,32 @@
+{
+  "title": "Mapas mentais",
+  "language": "pt-BR",
+  "layout": "radial",
+  "nodes": [
+    {
+      "id": "tema",
+      "label": "Mapas mentais",
+      "parent": null
+    },
+    {
+      "id": "radial",
+      "label": "Mapa radial",
+      "parent": "tema"
+    },
+    {
+      "id": "arvore",
+      "label": "Mapa em árvore",
+      "parent": "tema"
+    },
+    {
+      "id": "conceitual",
+      "label": "Mapa conceitual",
+      "parent": "tema"
+    },
+    {
+      "id": "sequencial",
+      "label": "Mapa sequencial",
+      "parent": "tema"
+    }
+  ]
+}

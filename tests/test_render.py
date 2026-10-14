@@ -31,6 +31,11 @@ class RenderTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate(data)
 
+    def test_pdf_export_documented(self):
+        script = (ROOT / "scripts" / "render.py").read_text(encoding="utf-8")
+        self.assertIn("cairosvg.svg2pdf", script)
+        self.assertIn('dest / "mapa.pdf"', script)
+
     def test_bad_language(self):
         data = copy.deepcopy(self.data)
         data["language"] = "en-US"
